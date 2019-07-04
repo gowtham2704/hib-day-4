@@ -1,0 +1,6822 @@
+Day 1
+
+no  1
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee {
+		
+	private int empno;
+	private String name;
+	private String city;
+	
+	
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+}
+
+
+MyMain
+
+package com.dsrc.bean;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class MyMain {
+	
+	public static void main(String[] args) {
+
+	// Do Logic
+		
+	}
+
+	public void saveEmployee(Employee eb) {
+		// TODO Auto-generated method stub
+		
+		SessionFactory sx=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sx.openSession();
+		
+		eb.setEmpno(1);
+		eb.setName("Rio");
+		eb.setCity("florida");
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.save(eb);
+		tx.commit();
+		
+		System.out.println("Done...");
+		
+	}
+
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://192.168.200.200:3307/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping resource="employee.hbm.xml"/>   
+      </session-factory>  
+</hibernate-configuration>
+
+
+employee.hbm.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="Employee" table="Employee">  
+    <id name="empno" type="int" column="EmpNO">  
+     <generator class="assigned"></generator>  
+    </id>              
+    <property name="name" column="Name" type="String"></property>  
+    <property name="city" column="City" type="String"></property>  
+  </class>        
+ </hibernate-mapping>
+
+
+no  2
+
+Department.java
+
+package com.dsrc.bean;
+
+public class Department {
+	
+	private int deptno;
+	private String deptname;
+	private String location;
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+    	<mapping resource="department.hbm.xml"/>   
+      </session-factory>  
+  
+</hibernate-configuration> 
+
+
+department.hbm.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.dsrc.bean.Department" table="Department">  
+    <id name="deptno" type="int" column="DeptNo">  
+     <generator class="assigned"></generator>  
+    </id>              
+    <property name="deptname" type="string" column="DeptName"></property>  
+    <property name="location" type="string" column="Location"></property>  
+  </class>        
+ </hibernate-mapping>  
+
+
+MyMain.java
+
+package com.dsrc;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Department;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		SessionFactory sx=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sx.openSession();
+		
+		Department d=new Department();
+		
+		d.setDeptno(101);
+		d.setDeptname("IT");
+		d.setLocation("Chennai");
+		
+		Transaction tx=s.beginTransaction();	
+		s.save(d);	
+		tx.commit();	
+		System.out.println("Welcome dude...");		
+	}	
+	public void saveDepartment(Department d) {
+		// TODO Auto-generated method stub
+		
+		//Logic to save department		
+	}
+}
+
+
+no  3
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee {
+	
+	private int empno;
+	private String name;
+	private String city;
+	
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+}
+
+employee.hbm.xml
+
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.dsrc.bean.Employee" table = "Employee">
+            
+      <id name = "empno" type = "int" column = "EmpNO">
+         <generator class="assigned"/>
+      </id>
+      
+      <property name = "name" column = "Name" type = "string"/>
+      <property name = "city" column = "City" type = "string"/>
+      
+   </class>
+</hibernate-mapping>
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping resource="employee.hbm.xml"/>   
+      </session-factory>  
+  
+</hibernate-configuration> 
+
+MyMain.java
+
+import java.util.Scanner;
+import com.dsrc.util.UserCode;
+import com.dsrc.bean.Employee;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		// TODO Auto-generated method stub
+		
+		
+		// Write ur code here...
+		
+		System.out.println("1.EnterData");
+		System.out.println("2.Exit");
+		System.out.println("Enter your choise(1/2):");
+		Scanner sc=new Scanner(System.in); 
+		int i=sc.nextInt();
+		int no;
+		String na,ci;
+
+		if(i==1)
+		{
+			System.out.println("Enter EmpNo:");
+			no=+sc.nextInt();
+			System.out.println("Enter Name:");
+			na=sc.next();
+			System.out.println("Enter City:");
+			ci=sc.next();
+			
+			Employee e=new Employee();
+			e.setEmpno(no);
+			e.setName(na);
+			e.setCity(ci);
+			
+			UserCode u=new UserCode();
+			boolean res=u.saveEmployee(e);
+			
+			if(res==true)
+			{
+				System.out.println("..Data Saved...");
+			}
+			else
+			{
+				System.out.println("Not Saved");
+			}
+			
+		}
+		if(i==2)
+		{
+			
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+import com.dsrc.bean.Employee;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class UserCode {
+	
+	public boolean saveEmployee(Employee bean)
+	{
+		
+		//Logic to save department
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sf.openSession();
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.save(bean);
+		
+		tx.commit();
+				
+		return true;
+	}
+
+}
+
+no  4
+
+Department.java
+
+package com.dsrc.bean;
+
+public class Department {
+			
+		private int deptno;
+		private String deptname;
+		private String location;
+		
+		public int getDeptno() {
+			return deptno;
+		}
+		public void setDeptno(int deptno) {
+			this.deptno = deptno;
+		}
+		public String getDeptname() {
+			return deptname;
+		}
+		public void setDeptname(String deptname) {
+			this.deptname = deptname;
+		}
+		public String getLocation() {
+			return location;
+		}
+		public void setLocation(String location) {
+			this.location = location;
+		}
+}
+
+department.hbm.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.dsrc.bean.Department" table="Department">  
+    <id name="deptno" type="int" column="DeptNo">  
+     <generator class="assigned"></generator>  
+    </id>              
+    <property name="deptname" type="string" column="DeptName"></property>  
+    <property name="location" type="string" column="Location"></property>  
+  </class>        
+ </hibernate-mapping>  
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping resource="department.hbm.xml"/>   
+      </session-factory>  
+  
+</hibernate-configuration> 
+
+
+MyMain.java
+
+import java.util.Scanner;
+import com.dsrc.bean.Department;
+import com.dsrc.util.UserCode;
+public class MyMain {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub		
+		// Write ur code here...		
+		System.out.println("1.EnterData");
+		System.out.println("2.Exit");
+		System.out.println("Enter your choise(1/2):");
+		Scanner sc=new Scanner(System.in); 
+		int i=sc.nextInt();
+		int no;
+		String na,ci;
+		
+		if(i==1)
+		{
+			System.out.println("Enter DeptNo:");
+			no=+sc.nextInt();
+			System.out.println("Enter DeptName:");
+			na=sc.next();
+			System.out.println("Enter Location:");
+			ci=sc.next();
+			
+			Department e=new Department();
+			e.setDeptno(no);
+			e.setDeptname(na);
+			e.setLocation(ci);
+			
+			UserCode u=new UserCode();
+			boolean res=u.saveDepartment(e);
+			
+			if(res==true)
+			{
+				System.out.println("..Data Saved...");
+			}
+			else
+			{
+				System.out.println("Not Saved");
+			}		
+		}
+		if(i==2)
+		{			
+		}
+	}
+}
+
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Department;
+
+public class UserCode {
+	
+	public boolean saveDepartment(Department d)
+	{
+		
+		//Logic to save department
+		
+	SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sf.openSession();
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.save(d);
+		
+		tx.commit();
+				
+		return true;
+		
+	}
+
+}
+
+
+no  5
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee {
+
+	private int empno;
+	private String name;
+	private String city;
+	
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+	
+}
+
+
+employee.hbm.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.dsrc.bean.Employee" table="Employee">  
+    <id name="empno" type="int" column="EmpNO">  
+     <generator class="assigned"></generator>  
+    </id>              
+    <property name="name" type="string" column="Name"></property>  
+    <property name="city" type="string" column="City"></property>  
+  </class>        
+ </hibernate-mapping>  
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping resource="employee.hbm.xml"/>   
+      </session-factory>  
+  
+</hibernate-configuration>  
+
+MyMain.java
+
+import java.util.Scanner;
+
+import com.dsrc.bean.Employee;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		Scanner sc=new Scanner(System.in); 
+		int no;
+		String na,ci;
+		
+		System.out.println("Enter EmpNo:");
+		no=+sc.nextInt();
+		System.out.println("Enter Name:");
+		na=sc.next();
+		System.out.println("Enter City:");
+		ci=sc.next();
+		
+		Employee e=new Employee();
+		e.setEmpno(no);
+		e.setName(na);
+		e.setCity(ci);
+		
+		UserCode u=new UserCode();
+		boolean res=u.updateEmployee(e);
+		
+		if(res==true)
+		{
+			System.out.println("..Data Updated...");
+		}
+		else
+		{
+			System.out.println("Not Updated");
+		}
+
+	}
+
+}
+
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode {
+	
+	public boolean updateEmployee(Employee bean)
+	{
+		
+	SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sf.openSession();
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.update(bean);
+		
+		tx.commit();
+				
+		return true;
+	}
+
+}
+
+
+no  6
+
+Employee.java
+
+package com.dsrc.bean;
+import javax.persistence.*;
+
+@Entity
+@Table(name="Employee")
+public class Employee {
+	
+	@Id
+	@Column(name="EmpNO")
+	private int empno;
+	@Column(name="Name")
+	private String name;
+	@Column(name="City")
+	
+	
+	private String city;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping class="com.dsrc.bean.Employee"/>   
+      </session-factory>  
+  
+</hibernate-configuration>  
+
+MyMain.java
+
+import com.dsrc.bean.Employee;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+		
+		Employee e=new Employee();
+		
+		e.setEmpno(100);
+		e.setName("Rio");
+		e.setCity("North Carolina");
+		
+		UserCode u=new UserCode();
+		
+		boolean res=u.updateEmployee(e);
+		
+		if(res==true)
+		{
+			System.out.println("Done...");
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cache.spi.TransactionalDataRegion;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode {
+	
+	public boolean updateEmployee(Employee bean)
+	{
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		
+		Session s=sf.openSession();
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.save(bean);
+		tx.commit();
+		
+		return true;
+	}
+
+}
+
+
+no  7
+
+Department.java
+
+package com.dsrc.bean;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Department")
+public class Department {
+	
+	@Id
+	@Column(name="DeptNo")
+	private int deptno;
+	@Column(name="DeptName")
+	private String deptname;
+	@Column(name="Location")
+	private String location;
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>    
+      </session-factory>  
+  
+</hibernate-configuration>  
+
+MyMain.java
+
+import com.dsrc.bean.Department;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		Department d=new Department();
+		d.setDeptno(70);
+		d.setDeptname("HR");
+		d.setLocation("INDIA");
+		
+		UserCode u=new UserCode();
+		
+		boolean res=u.saveDepartment(d);
+		if(res==true)
+		{
+			System.out.println("Done...");
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.dsrc.bean.Department;
+
+public class UserCode {
+	
+	public boolean saveDepartment(Department d)
+	{
+		
+		SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(Department.class).buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(d);
+		tx.commit();
+		
+		return true;
+	}
+}
+
+
+no  8
+
+Employee.java
+
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Employee")
+public class Employee {
+	
+	@Id
+	@Column(name="EmpNO")
+	private int empno;
+	@Column(name="Name")
+	private String name;
+	@Column(name="City")
+	
+	
+	private String city;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>    
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+     </session-factory>    
+</hibernate-configuration> 
+
+
+MyMain.java
+
+import java.util.Scanner;
+import com.dsrc.bean.Employee;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+	
+		System.out.println("1.EnterData");
+		System.out.println("2.Exit");
+		System.out.println("Enter your choise(1/2):");
+		Scanner sc=new Scanner(System.in); 
+		int i=sc.nextInt();
+		int no;
+		String na,ci;
+		
+		if(i==1)
+		{
+			System.out.println("Enter DeptNo:");
+			no=+sc.nextInt();
+			System.out.println("Enter DeptName:");
+			na=sc.next();
+			System.out.println("Enter Location:");
+			ci=sc.next();
+			
+			Employee e=new Employee();
+			e.setEmpno(no);
+			e.setName(na);
+			e.setCity(ci);
+			
+			UserCode u=new UserCode();
+			u.saveEmployee(e);
+		}
+		if(i==2)
+		{			
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode {
+	
+	public void saveEmployee(Employee bean)
+	{
+		
+SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(Employee.class).buildSessionFactory();
+		
+		Session s=sf.openSession();
+		
+		Transaction tx=s.beginTransaction();
+		
+		s.save(bean);
+		
+		tx.commit();
+
+		System.out.println("Done...");
+	}
+
+}
+
+
+no  9
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee {
+		
+		private int empno;
+		private String name;
+		private String city;
+		public int getEmpno() {
+			return empno;
+		}
+		public void setEmpno(int empno) {
+			this.empno = empno;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getCity() {
+			return city;
+		}
+		public void setCity(String city) {
+			this.city = city;
+		}	
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+     <mapping resource="employee.hbm.xml"/>   
+      </session-factory>  
+  
+</hibernate-configuration> 
+
+
+employee.hbm.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.dsrc.bean.Employee" table="Employee">  
+    <id name="empno" type="int" column="EmpNO">  
+     <generator class="assigned"></generator>  
+    </id>              
+    <property name="name" type="string" column="Name"></property>  
+    <property name="city" type="string" column="City"></property>  
+  </class>        
+ </hibernate-mapping>  
+
+MyMain.java
+
+import java.util.Scanner;
+
+import com.dsrc.bean.Employee;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		System.out.println("Enter EmpNo:");
+		Scanner sc=new Scanner(System.in);
+		int i=sc.nextInt();
+		Employee e=new Employee();
+		e.setEmpno(i);
+		UserCode u=new UserCode();
+		boolean res=u.deleteEmployee(e);
+		if(res==true)
+		{
+			System.out.println("Data Updated...");
+		}	
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode {
+	
+	public boolean deleteEmployee(Employee bean)
+	{		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		
+		bean=(Employee)s.get(Employee.class,bean.getEmpno());
+		s.delete(bean);
+		tx.commit();
+			
+		return true;
+	}
+}
+
+
+no  10
+
+Employee.java
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Employee")
+public class Employee {
+	@Id
+	@Column(name="EmpNO")
+	private int empno;
+	@Column(name="Name")
+	private String name;
+	@Column(name="City")
+	private String city;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/myhibernate</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+		<mapping class="com.dsrc.bean.Employee"/>
+      </session-factory>  
+</hibernate-configuration>
+
+MyMain.java
+
+import java.util.Scanner;
+
+import com.dsrc.bean.Employee;
+import com.dsrc.util.UserCode;
+
+public class MyMain {
+
+	public static void main(String[] args) {
+
+		System.out.println("Enter EmpNo:");
+		Scanner sc=new Scanner(System.in);
+		int i=sc.nextInt();
+		Employee e=new Employee();
+		e.setEmpno(i);
+		UserCode u=new UserCode();
+		boolean res=u.deleteEmployee(e);
+		if(res==true)
+		{
+			System.out.println("Data Updated...");
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode {
+	
+	public boolean deleteEmployee(Employee bean)
+	{
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		
+		bean=(Employee)s.get(Employee.class,bean.getEmpno());
+		s.delete(bean);
+		tx.commit();
+			
+		return true;
+	}
+}
+
+
+Day 2
+
+no 1
+
+Employee.java
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="employee")
+public class Employee
+{
+	@Id
+	@Column(name="id")
+	private int id;
+	@Column(name="name")
+	private String name;
+	@Column(name="age")
+	private int age;
+	@Column(name="city")
+	private String city;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}	
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.bean.Employee"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+MyMain.java
+
+import com.dsrc.util.UserCode;
+
+public class MyMain 
+{
+	public static void main(String[] args) {
+
+		UserCode u=new UserCode();
+		boolean res=u.insertEmployee(1001,"Nivi",7,"Chennai");
+		
+		if(res==true)
+		{
+			System.out.println("Data Inserted...");
+		}
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode 
+{
+
+	public boolean insertEmployee(int i, String string, int j, String string2) {
+		
+		
+		Employee e=new Employee();
+		e.setId(i);
+		e.setName(string);
+		e.setAge(j);
+		e.setCity(string2);
+
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(e);
+		tx.commit();
+			
+		return true;		
+	}		
+}
+
+
+no  2
+
+Employee.java
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="employee")
+public class Employee
+{
+	@Id
+	@Column(name="id")
+	private int id;
+	@Column(name="name")
+	private String name;
+	@Column(name="age")
+	private int age;
+	@Column(name="city")
+	private String city;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.bean.Employee"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+MyMain.java
+
+import com.dsrc.util.UserCode;
+
+public class MyMain 
+{
+	public static void main(String[] args) {
+		
+		UserCode u=new UserCode();
+		u.displayEmployees();
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import java.util.*;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Employee;
+
+public class UserCode 
+{
+
+	public void displayEmployees() {
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		
+		List employees=s.createQuery("FROM Employee").list();
+		
+		for(Iterator iterator=employees.iterator();iterator.hasNext();)
+		{
+			Employee e=(Employee)iterator.next();
+			
+			System.out.println("EmpNo:"+e.getId()+" Name:"+e.getName()+" Age:"+e.getAge()+" City:"+e.getCity());
+		}		
+	}		
+}
+
+
+no  3
+
+Address.java
+
+package com.dsrc.bean;
+public class Address
+{
+	private int empno;
+	private String addressText;
+	
+	public Address(int empno,String address)
+	{
+			this.empno=empno;
+			this.setAddressText(address);
+	}
+
+	public int getEmpno() {
+		return empno;
+	}
+
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+
+	public String getAddressText() {
+		return addressText;
+	}
+
+	public void setAddressText(String addressText) {
+		this.addressText = addressText;
+	}
+	
+}
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee 
+{
+	private int empno;
+	private String ename;
+	private int salary;
+    private Address address;
+	
+	public Employee() {}
+	   
+	   public Employee(int empno, String ename, int salary, Address address ) {
+	      this.empno=empno;
+	      this.ename=ename;
+	      this.salary=salary;
+	      this.setAddress(address);
+	   }
+	//Getters and setters..
+
+	public int getEmpno() {
+		return empno;
+	}
+
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+
+	public String getEname() {
+		return ename;
+	}
+
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	   
+	}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hibernate.hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping resource="employee.hbm.xml"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+employee.hbm.xml
+
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.dsrc.bean.Employee" table = "Employeee">
+      
+      
+      <id name = "empno" type = "int" column = "empno">
+         <generator class="assigned"/>
+      </id>    
+      <property name = "ename" column = "ename" type = "string"/>
+      <property name = "salary" column = "salary" type = "int"/>
+      <many-to-one name = "address" column = "address" 
+         class="com.dsrc.bean.Address" not-null="true"/>         
+   	 </class>
+
+   <class name = "com.dsrc.bean.Address" table="Address">    
+     <id name="empno" type="int" column="empno">  
+     <generator class="assigned"></generator>  
+    </id>     
+      <property name = "addressText" column = "address" type = "string"/>      
+   </class>
+</hibernate-mapping>
+
+MyMain.java
+
+import com.dsrc.util.UserCode;
+
+public class MyMain 
+{
+	public static void main(String[] args) {
+
+		UserCode u=new UserCode();
+		u.doManytoOne();
+	}
+}
+
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Address;
+import com.dsrc.bean.Employee;
+
+public class UserCode 
+{
+
+	public void doManytoOne() {
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		
+		
+		Address a=new Address(1, "Chennai");
+		s.save(a);
+		Employee e=new Employee(1, "Rada", 89999, a);
+		s.save(e);		
+		
+		t.commit();
+		
+	}		
+}
+
+no  4
+
+
+Employee.java
+
+package com.dsrc.bean;
+
+public class Employee
+{
+	private int id;
+	private String name;
+	private Department deptno;
+	
+	public Employee(int id,String name,Department deptno)
+	{
+		this.id=id;
+		this.name=name;
+		this.setDeptno(deptno);
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Department getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(Department deptno) {
+		this.deptno = deptno;
+	}	
+}
+
+Department.java
+
+package com.dsrc.bean;
+
+public class Department {
+
+	private int deptno;
+	private String deptname;
+	private String location;
+	
+	public Department(int deptno,String deptname,String location)
+	{
+		this.deptno=deptno;
+		this.deptname=deptname;
+		this.location=location;
+	}
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+       	<mapping resource="employee.hbm.xml"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+employee.hbm.xml
+
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "com.dsrc.bean.Employee" table = "Employee">
+      
+      
+      <id name = "id" type = "int" column = "empid">
+         <generator class="assigned"/>
+      </id>    
+      <property name = "name" column = "name" type = "string"/>
+      <many-to-one name = "deptno" column = "deptno" 
+         class="com.dsrc.bean.Department" not-null="true"/>         
+   	 </class>
+
+   <class name = "com.dsrc.bean.Department" table="Department">    
+     <id name="deptno" type="int" column="deptno">  
+     <generator class="assigned"></generator>  
+    </id>     
+      <property name = "deptname" column = "deptname" type = "string"/>  
+       <property name = "location" column = "location" type = "string"/> 
+   </class>
+</hibernate-mapping>
+
+
+MyMain.java
+
+import com.dsrc.util.UserCode;
+
+public class MyMain 
+{
+	public static void main(String[] args) {
+		UserCode u=new UserCode();
+		u.doManytoOne();
+	}
+}
+
+UserCode.java
+
+package com.dsrc.util;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.bean.Department;
+import com.dsrc.bean.Employee;
+
+public class UserCode 
+{
+
+	public void doManytoOne() {
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		
+		Department d=new Department(30,"IT", "Florida");
+		s.saveOrUpdate(d);
+	//	Employee e=new Employee(100,"Rio",d);
+	//	s.save(e);
+		Employee e1=new Employee(103,"Rio",d);
+		s.save(e1);
+		
+		tx.commit();
+		
+	}	
+}
+
+
+no  5
+
+Register.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="RegistrationServlet" method="get">
+	LoginName:<input type="text" name="login"><br>
+	Password:<input type="password" name="pass"><br>
+	Age:<input type="text" name="age"><br>
+	City:<input type="text" name="city"><br>
+	<input type="submit" value="Submit">
+</form>			
+<%if(request.getAttribute("error")!=null){%>
+<font color="red"><%=request.getAttribute("error") %></font>
+<%}%>	
+</body>
+</html>
+
+RegistrationBean.java
+
+package com.dsrc.servlets;
+
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.work.HibernateDAO;
+import com.dsrc.work.RegisterBean;
+
+@WebServlet("/RegistrationServlet")
+public class RegistrationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public RegistrationServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String s1=request.getParameter("login");
+		String s2=request.getParameter("pass");
+		int s3=Integer.parseInt(request.getParameter("age"));
+		String s4=request.getParameter("city");
+		
+		RegisterBean rb=new RegisterBean();
+		rb.setLoginname(s1);
+		rb.setPassword(s2);
+		rb.setAge(s3);
+		rb.setCity(s4);
+				
+		HibernateDAO dao=new HibernateDAO();
+		boolean res=dao.register(rb);
+		
+		if(res==true)
+		{
+			response.sendRedirect("success.html");
+		}
+		else
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("Register.jsp");
+			request.setAttribute("error", "Registration unsuccessful");
+			rd.forward(request, response);
+		}	
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+}
+
+HibernateDAO.java
+
+package com.dsrc.work;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+
+public class HibernateDAO
+{
+			public boolean register(RegisterBean rbean)
+			{
+				
+				SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(RegisterBean.class).buildSessionFactory();
+				Session s=sf.openSession();
+				Transaction tx=s.beginTransaction();
+				s.save(rbean);
+				tx.commit();
+				s.close();
+				
+				return true;
+			}
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">create</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+        <property name="show_sql">true</property>
+       	<mapping class="com.dsrc.work.RegisterBean"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+RegisterBean.java
+
+package com.dsrc.work;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="userlogin")
+public class RegisterBean {
+@Id
+@Column(name="loginname")
+private String loginname;
+@Column(name="password")
+private String password;
+@Column(name="age")
+private int age;
+@Column(name="City")
+private String City;
+
+public String getLoginname() {
+	return loginname;
+}
+public void setLoginname(String loginname) {
+	this.loginname = loginname;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+public int getAge() {
+	return age;
+}
+public void setAge(int age) {
+	this.age = age;
+}
+public String getCity() {
+	return City;
+}
+public void setCity(String city) {
+	City = city;
+}	
+}
+
+no  6
+
+ChangeProfile.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="ChangeController" method="get">
+	LoginName:<input type="text" name="login"><br>
+	Password:<input type="password" name="pass"><br>
+	Age:<input type="text" name="age"><br>
+	City:<input type="text" name="city"><br>
+	<input type="submit" value="Submit">
+</form>			
+<%if(request.getAttribute("error")!=null){%>
+<font color="red"><%=request.getAttribute("error") %></font>
+<%}%>			
+</body>
+</html>
+
+
+RegisterBean.java
+
+package com.dsrc.work;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="userlogin")
+public class RegisterBean {
+@Id
+@Column(name="loginname")
+private String loginname;
+@Column(name="password")
+private String password;
+@Column(name="age")
+private int age;
+@Column(name="City")
+private String City;
+
+public String getLoginname() {
+	return loginname;
+}
+public void setLoginname(String loginname) {
+	this.loginname = loginname;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
+}
+public int getAge() {
+	return age;
+}
+public void setAge(int age) {
+	this.age = age;
+}
+public String getCity() {
+	return City;
+}
+public void setCity(String city) {
+	City = city;
+}	
+}
+
+
+HibernateDAO.java
+
+package com.dsrc.work;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+public class HibernateDAO
+{
+			public boolean updateProfile(RegisterBean rbean)
+			{
+				
+
+				SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(RegisterBean.class).buildSessionFactory();
+				Session s=sf.openSession();
+				Transaction tx=s.beginTransaction();
+				s.saveOrUpdate(rbean);
+				tx.commit();
+				s.close();
+				
+				
+				return true;
+			}
+}
+
+
+ChangeController.java
+
+package com.dsrc.bo;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.work.HibernateDAO;
+import com.dsrc.work.RegisterBean;
+
+/**
+ * Servlet implementation class ChangeController
+ */
+@WebServlet("/ChangeController")
+public class ChangeController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ChangeController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String s1=request.getParameter("login");
+		String s2=request.getParameter("pass");
+		int s3=Integer.parseInt(request.getParameter("age"));
+		String s4=request.getParameter("city");
+		
+		RegisterBean rb=new RegisterBean();
+		rb.setLoginname(s1);
+		rb.setPassword(s2);
+		rb.setAge(s3);
+		rb.setCity(s4);
+				
+		HibernateDAO dao=new HibernateDAO();
+		boolean res=dao.updateProfile(rb);
+		
+		if(res==true)
+		{
+			response.sendRedirect("success.html");
+		}
+		else
+		{
+			response.sendRedirect("fail.html");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+        <property name="show_sql">true</property>
+       	<mapping class="com.dsrc.work.RegisterBean"/>
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+
+Day  3
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.ProductController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			MenuScreen ms=new MenuScreen();
+			int selected=ms.showMenu();
+			if(selected==1)
+			{
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+		}
+}
+
+ProductController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.shoeProductScreen();
+					
+			return res;
+		}
+}
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.model.Product;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+public class ProductScreen 
+{
+		public int shoeProductScreen()
+		{
+			// Add the product Menu..
+			
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==1)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.validateProduct(p);
+				if(res)
+				{
+					System.out.println("Product Added Successfully");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}			
+			}
+			return result;		
+		}
+}
+
+DataValidator.java
+
+package com.dsrc.service;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+
+public class DataValidator 
+{
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveProduct(product);
+		
+		return res;
+	}
+}
+
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(product);
+		tx.commit();
+		s.close();
+		
+		return true;
+	}
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+Product.java  (pojo)
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="ProductMgntsys")
+public class Product {
+
+	// Create variables and getters and setters..
+	
+	@Id
+	@Column(name="prod_id")
+	private int productid;
+	@Column(name="prod_name")
+	private String productname;
+	@Column(name="price")
+	private int price;
+	
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}
+
+
+no  2
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.ProductController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+
+			MenuScreen ms=new MenuScreen();
+			int selected=ms.showMenu();
+			if(selected==1)
+			{
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+			
+		}
+}
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+}
+
+ProductController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.shoeProductScreen();
+			return res;		
+		}
+}
+
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Product;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+public class ProductScreen 
+{
+		public int shoeProductScreen()
+		{
+			// Add the product Menu..
+
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==1)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.validateProduct(p);
+				if(res)
+				{
+					System.out.println("Product Added Successfully");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}			
+			}
+			else if(selected==2)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.updateProduct(p);
+				if(res)
+				{
+						System.out.println("Product Information Updated..");
+						ProductController pc=new ProductController();
+						pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+					
+			}
+			return result;		
+		}
+}
+
+DataValidator.java
+
+package com.dsrc.service;
+
+import org.hibernate.HibernateException;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+
+public class DataValidator 
+{
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveProduct(product);
+		
+		return res;
+	}
+	public boolean updateProduct(Product product)
+	{
+		//Code to call DAO.			
+		try{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.updateProduct(product);
+		}
+		catch(HibernateException ex)
+		{
+			return false;
+		}
+		return true;
+	}
+}
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(product);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean updateProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();	
+		s.update(product);
+		tx.commit();
+		s.close();
+		return true;		
+	}
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+    </session-factory>  
+  
+</hibernate-configuration>  
+
+(pojo) Product.java
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="ProductMgntsys")
+public class Product {
+
+	// Create variables and getters and setters..
+	
+	@Id
+	@Column(name="prod_id")
+	private int productid;
+	@Column(name="prod_name")
+	private String productname;
+	@Column(name="price")
+	private int price;
+	
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}
+
+no  3
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.ProductController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			MenuScreen ms=new MenuScreen();
+			int selected=ms.showMenu();
+			if(selected==1)
+			{
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}		
+		}
+}
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+
+}
+
+ProductControll.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.shoeProductScreen();
+			return res;
+		}
+}
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+public class ProductScreen 
+{
+		public int shoeProductScreen()
+		{
+			// Add the product Menu..
+
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==1)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.validateProduct(p);
+				if(res)
+				{
+					System.out.println("Product Added Successfully");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}			
+			}
+			else if(selected==2)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.updateProduct(p);
+				if(res)
+				{
+						System.out.println("Product Information Updated..");
+						ProductController pc=new ProductController();
+						pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+					
+			}
+			else if(selected==3)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				Product p=new Product();
+				p.setProductid(a);
+				DataValidator dv=new DataValidator();
+				boolean res=dv.deleteProduct(p);
+				if(res)
+				{
+					System.out.println("Product Deleated..");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				
+			}
+			return result;
+		}
+}
+
+DataValidators.java
+
+package com.dsrc.service;
+
+import org.hibernate.HibernateException;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+
+public class DataValidator 
+{
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveProduct(product);
+		
+		return res;
+	}
+	public boolean updateProduct(Product product)
+	{
+		try{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.updateProduct(product);
+		}
+		catch(HibernateException ex)
+		{
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		try{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.deleteProduct(product);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		return true;
+	}
+}
+
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(product);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean updateProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();	
+		s.update(product);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		product=(Product)s.get(Product.class,product.getProductid());
+		s.delete(product);
+		t.commit();
+		s.close();
+		return true;
+	}
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+Product.java(pojo)
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="ProductMgntsys")
+public class Product {
+
+	// Create variables and getters and setters..
+	
+	@Id
+	@Column(name="prod_id")
+	private int productid;
+	@Column(name="prod_name")
+	private String productname;
+	@Column(name="price")
+	private int price;
+	
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}
+
+
+no  4
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.ProductController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			System.out.println("--PMS---");
+			System.out.println("..Welcome to Product Management System..");
+			MenuScreen ms=new MenuScreen();
+			@SuppressWarnings("unused")
+			int res=ms.showMenu();		
+			if(res==1)
+			{
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+			
+		}
+}
+
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+}
+
+ProductController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.shoeProductScreen();
+			return res;
+		}
+}
+
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+
+public class ProductScreen 
+{
+		public int shoeProductScreen()
+		{
+			// Add the product Menu..
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==1)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.validateProduct(p);
+				if(res)
+				{
+					System.out.println("Product Added Successfully");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}			
+			}
+			else if(selected==2)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.updateProduct(p);
+				if(res)
+				{
+						System.out.println("Product Information Updated..");
+						ProductController pc=new ProductController();
+						pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+					
+			}
+			else if(selected==3)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				Product p=new Product();
+				p.setProductid(a);
+				DataValidator dv=new DataValidator();
+				boolean res=dv.deleteProduct(p);
+				if(res)
+				{
+					System.out.println("Product Deleated..");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				
+			}
+			else if(selected==4)
+			{
+				HibernateUtil hu=new HibernateUtil();
+				List product=hu.selectAllProducts();
+				System.out.println("Product ID \tProduct Name \t Price");
+				for(Iterator iterator=product.iterator();iterator.hasNext();)
+				{
+					Product product1=(Product)iterator.next();					
+					System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+				}
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+			return result;
+		}
+}
+
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		return true;
+	}
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		List product=s.createQuery("FROM Product").list();	
+		return product;
+		
+	}
+	
+
+	
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+no  5
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.ProductController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			System.out.println("--PMS---");
+			System.out.println("..Welcome to Product Management System..");
+			MenuScreen ms=new MenuScreen();
+			@SuppressWarnings("unused")
+			int res=ms.showMenu();			
+			if(res==1)
+			{
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+		}
+}
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+
+}
+
+ProductController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.shoeProductScreen();
+			return res;
+		}
+}
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+import com.dsrc.service.ProductController;
+
+
+public class ProductScreen 
+{
+		public int shoeProductScreen()
+		{
+			// Add the product Menu..
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==5)
+			{
+				System.out.println("Enter the Search Criteria\n1. By ProductID\n2. By Name\n3. By Price Range\n\nEnter choice:");
+				int i=sc.nextInt();
+				if(i==1)
+				{				
+					System.out.println("Enter ProductID:");
+					int j=sc.nextInt();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByID(j);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();					
+				}
+				if(i==2)
+				{
+					
+					System.out.println("Enter ProductName:");
+					String j=sc.next();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByname(j);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();							
+				}
+				if(i==3)
+				{
+					
+					System.out.println("Enter From Price:");
+					int j=sc.nextInt();
+					System.out.println("Enter To Price:");
+					int k=sc.nextInt();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByrange(j, k);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();							
+				}
+			 
+		}
+			return result;
+		}
+}
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		return true;
+	}
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByID(int productid)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where prod_id=:id");
+		q.setParameter("id", productid);
+		List product=q.list();
+		return product;
+		
+	}
+	public List<Product> searchByname(String name)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where prod_name=:id");
+		q.setParameter("id", name);
+		List product=q.list();
+		return product;
+		
+	}
+
+	public List<Product> searchByrange(int fromPrice,int toPrice)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where price between :val1 and :val2");
+		q.setParameter("val1", fromPrice);
+		q.setParameter("val2", toPrice);
+		List product=q.list();
+		return product;
+		
+	}
+	
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+Product.java(pojo)
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="ProductMgntsys")
+public class Product {
+
+	// Create variables and getters and setters..
+	
+	@Id
+	@Column(name="prod_id")
+	private int productid;
+	@Column(name="prod_name")
+	private String productname;
+	@Column(name="price")
+	private int price;
+	
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}
+
+
+no  6
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.StaffController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			System.out.println("--PMS---");
+			System.out.println("..Welcome to Product Management System..");
+			MenuScreen ms=new MenuScreen();
+			@SuppressWarnings("unused")
+			int res=ms.showMenu();		
+			if(res==3)
+			{
+				StaffController sc=new StaffController();
+				sc.productManage();
+			}		
+		}
+}
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+}
+
+StaffController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.StaffScreen;
+
+public class StaffController 
+{
+	public int productManage()
+	{
+		StaffScreen ps=new StaffScreen();
+		int res=ps.showStaffScreen();
+		return res;
+	}
+}
+
+
+StaffScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Staff;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.StaffController;
+
+
+
+public class StaffScreen 
+{
+	public int showStaffScreen()
+	{
+		// Add the product Menu..
+		System.out.println("STAFF MENU\n-------------\n1. New Staff\n2. Edit Staff\n3. Delete Staff\n4. Exit.\n\nEnter Your Choice : ");
+
+		Scanner sc=new Scanner(System.in);
+		int selected =sc.nextInt();
+		int result=0;
+		
+		if(selected==1)
+		{
+			System.out.println("Enter Staff ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Staff Name:");
+			String b=sc.next();
+			System.out.println("Enter Salary:");
+			int c=sc.nextInt();
+			
+			Staff s=new Staff();
+			s.setStaffid(a);
+			s.setStaffname(b);
+			s.setSalary(c);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=false;
+			try {
+				res = dv.validateStaff(s);
+			} catch (ProductException e) {
+				System.out.println(e.getMessage());
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}
+			if(res)
+			{
+				System.out.println("Staff Added Successfully");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}		
+	}
+		return result;
+}
+}
+
+DataValidator.java
+
+package com.dsrc.service;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class DataValidator 
+{
+	public boolean validateProduct(Product product)
+	{
+		return true;
+	}
+	
+	public boolean validateStaff(Staff staff) throws ProductException
+	{
+		// Code to call DAO..
+		int sal=staff.getSalary();
+		if(sal>0){
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveStaff(staff);	
+		return res;
+		}
+		else
+		{
+			throw new ProductException("Salary Cannot be Negative");			
+		}
+	}
+	
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">create</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Staff" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+Hibernate.java
+
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		return true;
+	}
+	// To Be Coded..	
+	public boolean saveStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByID(int productid)
+	{
+		return null;
+		
+	}
+	public List<Product> searchByname(String name)
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByrange(int fromPrice,int toPrice)
+	{
+		return null;
+		
+	}	
+}
+
+
+Staff.java(pojo)
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="StaffMgnt")
+public class Staff {
+	@Id
+	@Column(name="staff_id")
+	private int staffid;
+	@Column(name="staff_name")
+	private String staffname;
+	@Column(name="salary")
+	private int salary;
+	
+	public int getStaffid() {
+		return staffid;
+	}
+	public void setStaffid(int staffid) {
+		this.staffid = staffid;
+	}
+	public String getStaffname() {
+		return staffname;
+	}
+	public void setStaffname(String staffname) {
+		this.staffname = staffname;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+}
+
+ProductException.java
+
+package com.dsrc.exceptions;
+
+public class ProductException extends Exception {
+	public ProductException()
+	{
+		super();
+	}
+	public ProductException(String msg)
+	{
+		super(msg);
+	}
+}
+
+
+no  7
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.StaffController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			System.out.println("--PMS---");
+			System.out.println("..Welcome to Product Management System..");
+			MenuScreen ms=new MenuScreen();
+			@SuppressWarnings("unused")
+			int res=ms.showMenu();		
+		
+			if(res==3)
+			{
+				StaffController sc=new StaffController();
+				sc.productManage();
+			}
+		}
+}
+
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+
+}
+
+
+StaffController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.StaffScreen;
+
+public class StaffController 
+{
+	public int productManage()
+	{
+		StaffScreen ps=new StaffScreen();
+		int res=ps.showStaffScreen();
+		return res;
+	}
+}
+
+
+StaffScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Staff;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.StaffController;
+
+public class StaffScreen 
+{
+	public int showStaffScreen()
+	{
+		// Add the product Menu..
+		System.out.println("STAFF MENU\n-------------\n1. New Staff\n2. Edit Staff\n3. Delete Staff\n4. Exit.\n\nEnter Your Choice : ");
+
+		Scanner sc=new Scanner(System.in);
+		int selected =sc.nextInt();
+		int result=0;
+		
+		if(selected==1)
+		{
+			System.out.println("Enter Staff ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Staff Name:");
+			String b=sc.next();
+			System.out.println("Enter Salary:");
+			int c=sc.nextInt();
+			
+			Staff s=new Staff();
+			s.setStaffid(a);
+			s.setStaffname(b);
+			s.setSalary(c);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=false;
+			try {
+				res = dv.validateStaff(s);
+			} catch (ProductException e) {
+				System.out.println(e.getMessage());
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}
+			if(res)
+			{
+				System.out.println("Staff Added Successfully");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}		
+		}
+		else if(selected==2)
+		{
+			System.out.println("Enter Staff ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Staff Name:");
+			String b=sc.next();
+			System.out.println("Enter Salary:");
+			int c=sc.nextInt();
+			
+			Staff s=new Staff();
+			s.setStaffid(a);
+			s.setStaffname(b);
+			s.setSalary(c);
+			boolean res=false;
+			try{
+			HibernateUtil hu=new HibernateUtil();
+			res=hu.updateStaff(s);
+			}
+			catch(Exception e)
+			{
+				System.out.println("INVALID ID");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}
+			if(res)
+			{
+				System.out.println("Staff Record Updated..");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}	
+		}
+			else if(selected==3)
+			{
+				System.out.println("Enter Staff ID:");
+				int a=sc.nextInt();			
+				Staff s=new Staff();
+				s.setStaffid(a);
+				boolean res=false;
+				try{
+				HibernateUtil hu=new HibernateUtil();
+				res=hu.deleteStaff(s);
+				}
+				catch(Exception e)
+				{
+					System.out.println("INVALID ID");
+					StaffController stfc=new StaffController();
+					stfc.productManage();
+				}
+				if(res)
+				{
+					System.out.println("Staff Record Deleted..");
+					StaffController stfc=new StaffController();
+					stfc.productManage();
+				}	
+		}
+		return result;
+}
+}
+
+
+DataValidation.java
+
+package com.dsrc.service;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class DataValidator 
+{
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		return true;
+	}
+	
+	public boolean validateStaff(Staff staff) throws ProductException
+	{
+		// Code to call DAO..
+		int sal=staff.getSalary();
+		if(sal>0){
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveStaff(staff);	
+		return res;
+		}
+		else
+		{
+			throw new ProductException("Salary Cannot be Negative");			
+		}
+	}
+	
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+}
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Staff" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class HibernateUtil 
+{
+	public boolean saveProduct(Product product)
+	{
+		
+		return true;
+	}
+	// To Be Coded..	
+	public boolean saveStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean updateStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.update(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean deleteStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		staff=(Staff)s.get(Staff.class, staff.getStaffid());
+		s.delete(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByID(int productid)
+	{
+		return null;
+		
+	}
+	public List<Product> searchByname(String name)
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByrange(int fromPrice,int toPrice)
+	{
+		return null;
+		
+	}
+	
+}
+
+
+ProductException.java
+
+package com.dsrc.exceptions;
+
+public class ProductException extends Exception {
+	public ProductException()
+	{
+		super();
+	}
+	public ProductException(String msg)
+	{
+		super(msg);
+	}
+}
+
+
+no  8
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import com.dsrc.service.CustomerController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+		public static void main(String[] args) 
+		{
+			System.out.println("--PMS---");
+			System.out.println("..Welcome to Product Management System..");
+			MenuScreen ms=new MenuScreen();
+			@SuppressWarnings("unused")
+			int res=ms.showMenu();			
+			if(res==4)
+			{
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+		}
+}
+
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+
+}
+
+CustomerController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.CustomerScreen;
+
+public class CustomerController {
+	
+	public int customerManage()
+	{
+		CustomerScreen cs=new CustomerScreen();
+		int res=cs.showCustomerScreen();
+		return res;
+	}
+}
+
+
+CustomerScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Customer;
+import com.dsrc.service.CustomerController;
+import com.dsrc.service.DataValidator;
+
+public class CustomerScreen 
+{
+	public int showCustomerScreen()
+	{
+		// Add the product Menu..
+		System.out.println("CUSTOMER MENU\n-------------\n1. New Customer\n2. Edit Customer\n3. Delete Customer\n6. Exit.\n\nEnter Your Choice : ");
+
+		Scanner sc=new Scanner(System.in);
+		int selected =sc.nextInt();
+		int result=0;
+		
+		if(selected==1)
+		{
+			System.out.println("Enter Customer ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Customer Name:");
+			String b=sc.next();
+			System.out.println("Enter Email:");
+			String c=sc.next();
+			System.out.println("Enter Mobile:");
+			String d=sc.next();
+
+			
+			Customer e=new Customer();
+			e.setCustomerid(a);
+			e.setCustomername(b);
+			e.setEmail(c);
+			e.setMobileno(d);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=false;
+			try {
+				res = dv.validateCustomer(e);
+			} catch (ProductException f) {
+				System.out.println(f.getMessage());
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+			if(res)
+			{
+				System.out.println("Customer Added Successfully");
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}		
+		}
+		return result;
+	}
+}
+
+
+DataValidation.java
+
+package com.dsrc.service;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Customer;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class DataValidator 
+{
+	public boolean validateCustomer(Customer customer) throws ProductException
+	{
+		// Code to call DAO..
+		String email=customer.getEmail();
+		String mob=customer.getMobileno();
+		int len=mob.length();
+		String regex = "^(.+)@(.+)$";		 	
+		if(email.matches(regex))
+		{		
+			if(len==10)
+			{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.saveCustomer(customer);	
+			return res;
+			}
+			else
+			{
+				throw new ProductException("Invalid MobileNo");
+			}
+		}
+		else
+		{
+			throw new ProductException("Invalid Email");
+		}
+		 
+	}
+	
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		return true;
+	}
+	
+	public boolean validateStaff(Staff staff)
+	{
+		// Code to call DAO..
+		return true;
+	}
+	
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+}
+
+
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Customer" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Customer;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class HibernateUtil 
+{
+	public boolean saveCustomer(Customer customer)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(customer);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	
+	public boolean saveProduct(Product product)
+	{
+		return true;
+	}
+	// To Be Coded..	
+	public boolean saveStaff(Staff staff)
+	{
+		return true;
+	}
+	public boolean updateStaff(Staff staff)
+	{
+		return true;
+	}
+	public boolean deleteStaff(Staff staff)
+	{
+		return true;
+	}
+	
+	public boolean updateProduct(Product product)
+	{
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByID(int productid)
+	{
+		return null;
+		
+	}
+	public List<Product> searchByname(String name)
+	{
+		return null;
+		
+	}
+
+	public List<Product> searchByrange(int fromPrice,int toPrice)
+	{
+		return null;
+		
+	}
+	
+}
+
+
+Customer.java(pojo)
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Customermgnt")
+public class Customer {
+	
+	@Id
+	@Column(name="cust_id")
+	private int customerid;
+	@Column(name="cust_name")
+	private String customername;
+	@Column(name="email")
+	private String email;
+	@Column(name="mobile_no")
+	private String mobileno;
+	
+	public int getCustomerid() {
+		return customerid;
+	}
+	public void setCustomerid(int customerid) {
+		this.customerid = customerid;
+	}
+	public String getCustomername() {
+		return customername;
+	}
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getMobileno() {
+		return mobileno;
+	}
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
+}
+
+
+no  9
+
+Main
+*****
+
+MyMain.java
+
+package com.dsrc.executer;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.login;
+import com.dsrc.service.CustomerController;
+import com.dsrc.service.ProductController;
+import com.dsrc.service.StaffController;
+import com.dsrc.view.MenuScreen;
+
+public class MyMain 
+{
+	public MyMain()
+	{
+		
+	}
+		public static void main(String[] args) 
+		{
+			Scanner sc=new Scanner(System.in);
+			System.out.println("PMS\n--------\nLoginID:");
+			String user=sc.next();
+			System.out.println("Password:");
+			String pass=sc.next();
+			HibernateUtil hu=new HibernateUtil();
+			List l=hu.checkLogin(user, pass);
+			for(Iterator i=l.iterator();i.hasNext();)
+			{
+				login log=(login) i.next();
+				if(user.equals(log.getLoginid())&&pass.equals(log.getPassword()))
+				{				
+					System.out.println("--PMS---");
+					System.out.println("..Welcome to Product Management System..");
+					MenuScreen ms=new MenuScreen();
+					@SuppressWarnings("unused")
+					int res=ms.showMenu();
+					if(res==1)
+					{
+						ProductController pc=new ProductController();
+						pc.productManage();
+					}
+					else if(res==3)
+					{
+						StaffController stffc=new StaffController();
+						stffc.productManage();
+					}
+					else if(res==4)
+					{
+						CustomerController cc=new CustomerController();
+						cc.customerManage();
+					}
+					else if(res==5)
+					{
+						MyMain m=new MyMain();
+						m.main(args);
+					}
+					break;
+				}
+				else
+				{
+					System.out.println("Invalid Login");
+					MyMain m=new MyMain();
+					m.main(args);
+					break;
+				}
+			}			
+		}
+}
+
+Screen
+*******
+
+MenuScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+public class MenuScreen
+{
+
+	public int showMenu() {
+	
+		// Show the Menu Here..
+		int selected;
+		System.out.println("Show Menu..");
+		System.out.println("------------");
+		System.out.println("1.Product"+"\n"+"2.Sales"+"\n"+"3.Staff"+"\n"+"4.Customer"+"\n"+"5.Log out");
+		System.out.println("\nEnter your Choise:");
+		Scanner sc=new Scanner(System.in);
+		selected=sc.nextInt();
+			
+		return selected;
+	}
+
+}
+
+ProductScreen.java
+
+package com.dsrc.view;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.model.Product;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+public class ProductScreen 
+{
+		public int showProductScreen()
+		{
+			// Add the product Menu..
+			System.out.println("PRODUCT MENU \n------------- \n1. New Product \n2. Edit Product \n3. Delete Product \n4. List Product \n5. Search Product \n6. Exit.");
+			System.out.println("\nEnter Your Choise:");
+			Scanner sc=new Scanner(System.in);
+			int selected =sc.nextInt();
+			int result=0;
+			
+			if(selected==1)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.validateProduct(p);
+				if(res)
+				{
+					System.out.println("Product Added Successfully");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}			
+			}
+			else if(selected==2)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				System.out.println("Enter Product Name:");
+				String b=sc.next();
+				System.out.println("Enter ProductPrice:");
+				int c=sc.nextInt();
+				
+				Product p=new Product();
+				p.setProductid(a);
+				p.setProductname(b);
+				p.setPrice(c);
+				
+				DataValidator dv=new DataValidator();
+				boolean res=dv.updateProduct(p);
+				if(res)
+				{
+						System.out.println("Product Information Updated..");
+						ProductController pc=new ProductController();
+						pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+					
+			}
+			else if(selected==3)
+			{
+				System.out.println("Enter Product ID:");
+				int a=sc.nextInt();
+				Product p=new Product();
+				p.setProductid(a);
+				DataValidator dv=new DataValidator();
+				boolean res=dv.deleteProduct(p);
+				if(res)
+				{
+					System.out.println("Product Deleated..");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				else
+				{
+					System.out.println("INVALID ID");
+					ProductController pc=new ProductController();
+					pc.productManage();
+				}
+				
+			}
+			else if(selected==4)
+			{
+				HibernateUtil hu=new HibernateUtil();
+				List product=hu.selectAllProducts();
+				System.out.println("Product ID \tProduct Name \t Price");
+				for(Iterator iterator=product.iterator();iterator.hasNext();)
+				{
+					Product product1=(Product)iterator.next();					
+					System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+				}
+				ProductController pc=new ProductController();
+				pc.productManage();
+			}
+			else if(selected==5)
+			{
+				System.out.println("Enter the Search Criteria\n1. By ProductID\n2. By Name\n3. By Price Range\n\nEnter choice:");
+				int i=sc.nextInt();
+				if(i==1)
+				{				
+					System.out.println("Enter ProductID:");
+					int j=sc.nextInt();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByID(j);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();					
+				}
+				if(i==2)
+				{
+					
+					System.out.println("Enter ProductName:");
+					String j=sc.next();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByname(j);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();							
+				}
+				if(i==3)
+				{
+					
+					System.out.println("Enter From Price:");
+					int j=sc.nextInt();
+					System.out.println("Enter To Price:");
+					int k=sc.nextInt();
+					HibernateUtil hu=new HibernateUtil();
+					List product=hu.searchByrange(j, k);
+					System.out.println("Product ID \tProduct Name \t Price");
+					for(Iterator iterator=product.iterator();iterator.hasNext();)
+					{
+						Product product1=(Product)iterator.next();					
+						System.out.format( "%-15s %-15s %-15s %n",product1.getProductid(),product1.getProductname(),product1.getPrice());		
+					}
+					ProductController pc=new ProductController();
+					pc.productManage();							
+				}
+			 
+		}
+			else if(selected==6)
+			{
+				MenuScreen ms=new MenuScreen();
+				ms.showMenu();
+			}
+			return result;
+		}
+}
+
+
+StaffScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Staff;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.StaffController;
+
+public class StaffScreen 
+{
+	public int showStaffScreen()
+	{
+		// Add the product Menu..
+		System.out.println("STAFF MENU\n-------------\n1. New Staff\n2. Edit Staff\n3. Delete Staff\n4. Exit.\n\nEnter Your Choice : ");
+
+		Scanner sc=new Scanner(System.in);
+		int selected =sc.nextInt();
+		int result=0;
+		
+		if(selected==1)
+		{
+			System.out.println("Enter Staff ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Staff Name:");
+			String b=sc.next();
+			System.out.println("Enter Salary:");
+			int c=sc.nextInt();
+			
+			Staff s=new Staff();
+			s.setStaffid(a);
+			s.setStaffname(b);
+			s.setSalary(c);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=false;
+			try {
+				res = dv.validateStaff(s);
+			} catch (ProductException e) {
+				System.out.println(e.getMessage());
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}
+			if(res)
+			{
+				System.out.println("Staff Added Successfully");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}		
+	}
+		else if(selected==2)
+		{
+			System.out.println("Enter Staff ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Staff Name:");
+			String b=sc.next();
+			System.out.println("Enter Salary:");
+			int c=sc.nextInt();
+			
+			Staff s=new Staff();
+			s.setStaffid(a);
+			s.setStaffname(b);
+			s.setSalary(c);
+			boolean res=false;
+			try{
+			HibernateUtil hu=new HibernateUtil();
+			res=hu.updateStaff(s);
+			}
+			catch(Exception e)
+			{
+				System.out.println("INVALID ID");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}
+			if(res)
+			{
+				System.out.println("Staff Record Updated..");
+				StaffController stfc=new StaffController();
+				stfc.productManage();
+			}	
+		}
+			else if(selected==3)
+			{
+				System.out.println("Enter Staff ID:");
+				int a=sc.nextInt();			
+				Staff s=new Staff();
+				s.setStaffid(a);
+				boolean res=false;
+				try{
+				HibernateUtil hu=new HibernateUtil();
+				res=hu.deleteStaff(s);
+				}
+				catch(Exception e)
+				{
+					System.out.println("INVALID ID");
+					StaffController stfc=new StaffController();
+					stfc.productManage();
+				}
+				if(res)
+				{
+					System.out.println("Staff Record Deleted..");
+					StaffController stfc=new StaffController();
+					stfc.productManage();
+				}	
+		}
+			else if(selected==4)
+			{
+				MenuScreen ms=new MenuScreen();
+				ms.showMenu();
+			}
+		return result;
+	}
+}
+
+
+CustomerScreen.java
+
+package com.dsrc.view;
+
+import java.util.Scanner;
+
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Customer;
+import com.dsrc.model.Product;
+import com.dsrc.service.CustomerController;
+import com.dsrc.service.DataValidator;
+import com.dsrc.service.ProductController;
+
+public class CustomerScreen 
+{
+	public int showCustomerScreen()
+	{
+		System.out.println("CUSTOMER MENU\n-------------\n1. New Customer\n2. Edit Customer\n3. Delete Customer\n4. Exit.\n\nEnter Your Choice : ");
+
+		Scanner sc=new Scanner(System.in);
+		int selected =sc.nextInt();
+		int result=0;
+		
+		if(selected==1)
+		{
+			System.out.println("Enter Customer ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Customer Name:");
+			String b=sc.next();
+			System.out.println("Enter Email:");
+			String c=sc.next();
+			System.out.println("Enter Mobile:");
+			String d=sc.next();
+
+			
+			Customer e=new Customer();
+			e.setCustomerid(a);
+			e.setCustomername(b);
+			e.setEmail(c);
+			e.setMobileno(d);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=false;
+			try {
+				res = dv.validateCustomer(e);
+			} catch (ProductException f) {
+				System.out.println(f.getMessage());
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+			if(res)
+			{
+				System.out.println("Customer Added Successfully");
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}		
+		}
+		else if(selected==2)
+		{
+
+			System.out.println("Enter Customer ID:");
+			int a=sc.nextInt();
+			System.out.println("Enter Customer Name:");
+			String b=sc.next();
+			System.out.println("Enter Email:");
+			String c=sc.next();
+			System.out.println("Enter Mobile:");
+			String d=sc.next();
+
+			
+			Customer e=new Customer();
+			e.setCustomerid(a);
+			e.setCustomername(b);
+			e.setEmail(c);
+			e.setMobileno(d);
+			
+			DataValidator dv=new DataValidator();
+			boolean res=dv.updateCustomer(e);
+			if(res)
+			{
+					System.out.println("Customer Updated Successfully");
+					CustomerController cc=new CustomerController();
+					cc.customerManage();
+			}
+			else
+			{
+				System.out.println("INVALID ID");
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+		}
+		else if(selected==3)
+		{
+			System.out.println("Enter Customer ID:");
+			int a=sc.nextInt();
+			Customer e=new Customer();
+			e.setCustomerid(a);
+			DataValidator dv=new DataValidator();
+			boolean res=dv.deleteCustomer(e);
+			if(res)
+			{
+				System.out.println("Customer Deleated..");
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+			else
+			{
+				System.out.println("INVALID ID");
+				CustomerController cc=new CustomerController();
+				cc.customerManage();
+			}
+			
+		}
+		else if(selected==4)
+		{
+			MenuScreen ms=new MenuScreen();
+			ms.showMenu();
+		}
+		return result;
+	}
+}
+
+
+Controller
+***********
+
+DataValidators.java
+
+package com.dsrc.service;
+
+import org.hibernate.HibernateException;
+
+import com.dsrc.dao.HibernateUtil;
+import com.dsrc.exceptions.ProductException;
+import com.dsrc.model.Customer;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+
+public class DataValidator 
+{
+	public boolean validateCustomer(Customer customer) throws ProductException
+	{
+		String email=customer.getEmail();
+		String mob=customer.getMobileno();
+		int len=mob.length();
+		String regex = "^(.+)@(.+)$";		 	
+		if(email.matches(regex))
+		{		
+			if(len==10)
+			{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.saveCustomer(customer);	
+			return res;
+			}
+			else
+			{
+				throw new ProductException("Invalid MobileNo");
+			}
+		}
+		else
+		{
+			throw new ProductException("Invalid Email");
+		}
+	}
+	public boolean updateCustomer(Customer customer)
+	{
+		// Code to call DAO..
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.updateCustomer(customer);
+		
+		return res;	
+	}
+	public boolean deleteCustomer(Customer customer)
+	{
+		// Code to call DAO..
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.deleteCustomer(customer);
+		
+		return res;	
+	}
+	public boolean validateProduct(Product product)
+	{
+		// Code to call DAO..
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveProduct(product);
+		
+		return res;	
+	}
+	
+	public boolean validateStaff(Staff staff) throws ProductException
+	{
+		// Code to call DAO..
+		int sal=staff.getSalary();
+		if(sal>0){
+		HibernateUtil hu=new HibernateUtil();
+		boolean res=hu.saveStaff(staff);	
+		return res;
+		}
+		else
+		{
+			throw new ProductException("Salary Cannot be Negative");			
+		}
+	}
+	public boolean updateStaff(Staff staff)
+	{
+		// Code to call DAO..
+		return true;
+	}public boolean deleteStaff(Staff staff)
+	{
+		// Code to call DAO..
+		return true;
+	}
+	
+	public boolean updateProduct(Product product)
+	{
+		try{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.updateProduct(product);
+		}
+		catch(HibernateException ex)
+		{
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		try{
+			HibernateUtil hu=new HibernateUtil();
+			boolean res=hu.deleteProduct(product);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		return true;
+	}
+}
+
+
+ProductController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.ProductScreen;
+
+public class ProductController
+{
+		public int productManage()
+		{
+			ProductScreen ps=new ProductScreen();
+			int res=ps.showProductScreen();
+					
+			return res;
+		}
+}
+
+
+StaffController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.StaffScreen;
+
+public class StaffController 
+{
+	public int productManage()
+	{
+		StaffScreen ps=new StaffScreen();
+		int res=ps.showStaffScreen();
+		return res;
+	}
+}
+
+
+CustomerController.java
+
+package com.dsrc.service;
+
+import com.dsrc.view.CustomerScreen;
+
+public class CustomerController {
+	
+	public int customerManage()
+	{
+		CustomerScreen cs=new CustomerScreen();
+		int res=cs.showCustomerScreen();
+		return res;
+	}
+}
+
+Bean
+*****
+
+login.java
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="loginmgt")
+public class login {
+	@Id
+	@Column(name="log_id")
+	private String loginid;
+	@Column(name="pass")
+	private String password;
+	public String getLoginid() {
+		return loginid;
+	}
+	public void setLoginid(String loginid) {
+		this.loginid = loginid;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}	
+}
+
+Product.java
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="ProductMgntsys")
+public class Product {
+
+	// Create variables and getters and setters..
+	
+	@Id
+	@Column(name="prod_id")
+	private int productid;
+	@Column(name="prod_name")
+	private String productname;
+	@Column(name="price")
+	private int price;
+	
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public String getProductname() {
+		return productname;
+	}
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}	
+}
+
+Staff.java
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="StaffMgnt")
+public class Staff {
+	@Id
+	@Column(name="staff_id")
+	private int staffid;
+	@Column(name="staff_name")
+	private String staffname;
+	@Column(name="salary")
+	private int salary;
+	
+	public int getStaffid() {
+		return staffid;
+	}
+	public void setStaffid(int staffid) {
+		this.staffid = staffid;
+	}
+	public String getStaffname() {
+		return staffname;
+	}
+	public void setStaffname(String staffname) {
+		this.staffname = staffname;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+}
+
+
+Customer.java
+
+package com.dsrc.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Customermgnt")
+public class Customer {
+	
+	@Id
+	@Column(name="cust_id")
+	private int customerid;
+	@Column(name="cust_name")
+	private String customername;
+	@Column(name="email")
+	private String email;
+	@Column(name="mobile_no")
+	private String mobileno;
+	
+	public int getCustomerid() {
+		return customerid;
+	}
+	public void setCustomerid(int customerid) {
+		this.customerid = customerid;
+	}
+	public String getCustomername() {
+		return customername;
+	}
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getMobileno() {
+		return mobileno;
+	}
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
+}
+
+
+hibernate.cfg.xml
+*******************
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hiber</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.model.Product" />
+         <mapping class="com.dsrc.model.Staff" />
+         <mapping class="com.dsrc.model.Customer" />
+        <mapping class="com.dsrc.model.login" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+DAO
+****
+
+HibernateUtil.java
+
+package com.dsrc.dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.dsrc.model.Customer;
+import com.dsrc.model.Product;
+import com.dsrc.model.Staff;
+import com.dsrc.model.login;
+
+public class HibernateUtil 
+{
+	public boolean saveCustomer(Customer customer)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(customer);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean updateCustomer(Customer customer)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.update(customer);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean deleteCustomer(Customer customer)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		customer=(Customer)s.get(Customer.class,customer.getCustomerid());
+		s.delete(customer);
+		t.commit();
+		s.close();
+		return true;
+	}
+	
+	public boolean saveProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(product);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	// To Be Coded..	
+	public boolean saveStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean updateStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.update(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean deleteStaff(Staff staff)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		staff=(Staff)s.get(Staff.class, staff.getStaffid());
+		s.delete(staff);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	
+	public boolean updateProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();	
+		s.update(product);
+		tx.commit();
+		s.close();
+		return true;
+	}
+	public boolean deleteProduct(Product product)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		product=(Product)s.get(Product.class,product.getProductid());
+		s.delete(product);
+		t.commit();
+		s.close();
+		return true;
+	}
+	public List<Product> selectAllProducts()
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		List product=s.createQuery("FROM Product").list();	
+		return product;
+		
+	}
+
+	public List<Product> searchByID(int productid)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where prod_id=:id");
+		q.setParameter("id", productid);
+		List product=q.list();
+		return product;
+		
+	}
+	public List<Product> searchByname(String name)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where prod_name=:id");
+		q.setParameter("id", name);
+		List product=q.list();
+		return product;
+		
+	}
+
+	public List<Product> searchByrange(int fromPrice,int toPrice)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction t=s.beginTransaction();
+		Query q=s.createQuery("From Product where price between :val1 and :val2");
+		q.setParameter("val1", fromPrice);
+		q.setParameter("val2", toPrice);
+		List product=q.list();
+		return product;
+		
+	}
+	public List<login> checkLogin(String id,String pass)
+	{
+		SessionFactory sf=new Configuration().configure().buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		List l=s.createQuery("From login").list();
+		return l;		
+	}
+}
+
+Exception
+**********
+
+ProductException.java
+
+
+package com.dsrc.exceptions;
+
+public class ProductException extends Exception {
+	public ProductException()
+	{
+		super();
+	}
+	public ProductException(String msg)
+	{
+		super(msg);
+	}
+}
+
+
+
+Day 4
+
+no  1
+
+LoginBean.java
+**************
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="login")
+public class LoginBean {
+	@Id
+	@Column(name="loginid")
+	private int loginid;
+	@Column(name="password")
+	private String password;
+	@Column(name="role")
+	private String role;
+	
+	public int getLoginid() {
+		return loginid;
+	}
+	public void setLoginid(int loginid) {
+		this.loginid = loginid;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+}
+
+login.jsp
+*********
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="logname"></td></tr>
+<tr><td>Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td>Role</td><td><input type="radio" name="admin">Admin<input type="radio" name="admin">Employee</td></tr>
+<tr><td></td><td align="right"><input type="button" value="Login"></td></tr>
+</table>
+</center>
+</form>
+</body>
+</html>
+
+
+LoginServlet.java
+******************
+
+package com.dsrc.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.bean.LoginBean;
+import com.dsrc.bo.LoginBO;
+
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+  
+    public LoginServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+		// Fill the CODE
+		// Verify the result of LoginBO and Redirect to pages..
+		doGet(request, response);
+
+		int logid=Integer.parseInt(request.getParameter("logname"));
+		String pass=request.getParameter("pass");
+		String role=request.getParameter("admin");
+		
+		LoginBean lb=new LoginBean();
+		lb.setLoginid(logid);
+		lb.setPassword(pass);
+		lb.setRole(role);
+		
+		LoginBO lbo=new LoginBO();
+		boolean res=lbo.validateUser(lb);
+		if(res)
+		{
+			if(role.equalsIgnoreCase("Admin"))
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("adminHome.jsp");
+				rd.forward(request, response);
+			}
+			else if(role.equalsIgnoreCase("Employee"))
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("employeeHome.jsp");
+				rd.forward(request, response);
+			}
+		}
+		else
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+			request.setAttribute("error", "Invalid Id");
+			rd.forward(request, response);			
+		}
+	}
+}
+
+
+LoginBO.java
+*************
+
+package com.dsrc.bo;
+
+import com.dsrc.bean.LoginBean;
+import com.dsrc.dao.LoginDAO;
+
+public class LoginBO 
+{
+		public boolean validateUser(LoginBean bean)
+		{
+			// CAll DAO
+			
+			LoginDAO ldao=new LoginDAO();
+			boolean res=ldao.validateUser(bean);
+						
+			return res;
+		}
+}
+
+
+LoginDAO.java
+*************
+
+package com.dsrc.dao;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.dsrc.bean.LoginBean;
+
+public class LoginDAO {
+	public boolean validateUser(LoginBean bean)
+	{
+		//Use Hibernate , verify the user..
+		boolean res=false;
+		int id=bean.getLoginid();
+		String pass=bean.getPassword();
+		String role=bean.getRole();
+		
+		SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(LoginBean.class).buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		List check=s.createQuery("from LoginBean").list();
+		
+		for(Iterator i=check.iterator();i.hasNext();)
+		{
+			LoginBean lb=(LoginBean) i.next();
+			if(id==lb.getLoginid()&&pass.equalsIgnoreCase(lb.getPassword())&&role.equalsIgnoreCase(lb.getRole()))
+			{
+				res=true;
+			}
+		}	
+		return res;
+	}
+}
+
+adminHome.jsp
+**********
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<img alt="img" src="Logo.png"><hr>
+<h1>Welcome Admin!</h1>
+</center>
+</body>
+</html>
+
+employeeHome.jsp
+*****************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<img alt="img" src="Logo.png"><hr>
+<h1>Welcome Employee!</h1>
+</center>
+</body>
+</html>
+
+
+hibernate.cfg.xml
+******************
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/EmpDBS</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.bean.LoginBean" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+no  2
+
+Department.java
+***************
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Department")
+public class Department {
+	
+	@Id
+	@Column(name="DeptNo")
+	private int deptno;
+	@Column(name="DeptName")
+	private String deptname;
+	@Column(name="Location")
+	private String location;
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+}
+
+
+adminHome.jsp
+**************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="DepartmentRegister" method="get">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<input type="submit" name="sub" value="Add Department">
+<input type="submit" name="sub" value="Delete Department">
+<input type="submit" name="sub" value="Add Employee">
+<input type="submit" name="sub" value="Delete Employee">
+<input type="submit" name="sub" value="Search Employee">
+</center>
+</form>
+</body>
+</html>
+
+
+DepartmentRegister.java
+************************
+
+package com.dsrc.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.bean.Department;
+import com.dsrc.bo.DepartmentBO;
+import com.dsrc.exception.EMPException;
+
+/**
+ * Servlet implementation class DepartmentRegister
+ */
+@WebServlet("/DepartmentRegister")
+public class DepartmentRegister extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DepartmentRegister() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("sub").equalsIgnoreCase("Add Department"))
+		{
+			response.sendRedirect("addDepartment.jsp");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		int no=Integer.parseInt(request.getParameter("deptno"));
+		String name=request.getParameter("deptname");
+		String loc=request.getParameter("loc");
+		
+		Department dp=new Department();
+		dp.setDeptno(no);
+		dp.setDeptname(name);
+		dp.setLocation(loc);
+		
+		DepartmentBO dbo=new DepartmentBO();
+		try {
+			boolean res=dbo.validateDepartment(dp);
+			if(res)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("adminHome.jsp");
+				rd.forward(request, response);
+			}
+		} catch (EMPException e) {
+			String error=e.getMessage();
+			RequestDispatcher rd=request.getRequestDispatcher("addDepartment.jsp");
+			request.setAttribute("error", error);
+			rd.forward(request, response);
+		}
+	}
+}
+
+
+addDepartment.jsp
+******************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="DepartmentRegister" method="post">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<% if(request.getAttribute("error")!=null){ %>
+<font><%=request.getAttribute("error") %></font><%}%>
+<table>
+<tr><td>Department NO</td><td><input type="text" name="deptno"></td></tr>
+<tr><td>Department Name</td><td><input type="text" name="deptname"></td></tr>
+<tr><td>Location</td><td>
+<select name="loc">
+<option value=""></option>
+<option value="Chennai">Chennai</option>
+<option value="Bangalore">Bangalore</option>
+<option value="Mumbai">Mumbai</option>
+</select>
+</td></tr>
+<tr><td></td><td align="right"><input type="submit" value="Save"></td></tr>
+</table>
+</center>
+</form>
+</body>
+</html>
+
+
+DepartmentBO.java
+******************
+
+package com.dsrc.bo;
+
+import com.dsrc.bean.Department;
+import com.dsrc.dao.DepartmentDAO;
+import com.dsrc.exception.EMPException;
+
+public class DepartmentBO {
+
+	public boolean validateDepartment( Department depart) throws EMPException
+	{
+		boolean res=false;
+		String no=String.valueOf(depart.getDeptno());
+		String name=depart.getDeptname();
+		String loc=depart.getLocation();
+		
+		if(no.length()>0&&name.length()>0&&loc.length()>0)
+		{
+			DepartmentDAO ddao=new DepartmentDAO();
+			res=ddao.saveDepartment(depart);
+		}
+		else
+		{
+			throw new EMPException("Fill All Details");
+		}
+		
+		return res;
+		
+	}
+}
+
+
+DepartmentDAO.java
+*******************
+
+package com.dsrc.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.dsrc.bean.Department;
+
+public class DepartmentDAO 
+{
+	public boolean saveDepartment( Department depart)
+	{
+		
+		SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(Department.class).buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();
+		s.save(depart);
+		tx.commit();
+		s.close();
+		return true;	
+	}
+}
+
+
+hibernate.cfg.xml
+******************
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC  
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
+  
+<hibernate-configuration>  
+  
+    <session-factory>  
+        <property name="hbm2ddl.auto">update</property>  
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>  
+        <property name="connection.url">jdbc:mysql://localhost:3306/EmpDBS</property>  
+        <property name="connection.username">root</property>  
+        <property name="connection.password">dsrc</property>  
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <mapping class="com.dsrc.bean.Department" />
+    </session-factory>  
+  
+</hibernate-configuration> 
+
+
+no  3
+
+Department.java
+****************
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Department")
+public class Department {
+	
+	@Id
+	@Column(name="DeptNo")
+	private int deptno;
+	@Column(name="DeptName")
+	private String deptname;
+	@Column(name="Location")
+	private String location;
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+}
+
+adminHome.jsp
+**************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="DepartmentRegister" method="get">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<input type="submit" name="sub" value="Add Department">
+<input type="submit" name="sub" value="Delete Department">
+<input type="submit" name="sub" value="Add Employee">
+<input type="submit" name="sub" value="Delete Employee">
+<input type="submit" name="sub" value="Search Employee">
+</center>
+</form>
+</body>
+</html>
+
+DepartmentRegister.java
+************************
+
+package com.dsrc.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class DepartmentRegister
+ */
+@WebServlet("/DepartmentRegister")
+public class DepartmentRegister extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DepartmentRegister() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("sub").equalsIgnoreCase("Delete Department"))
+		{
+			response.sendRedirect("deleteDepartment.jsp");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+deleteDepartment.jsp
+**********************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="DepartmentRemove" method="post">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<table>
+<tr><td>Department No</td><td><input type="text" name="no"></td><tr>
+<tr><td></td><td align="right"><input type="Submit" value="REMOVE"></td></tr>
+<tr><td><font color="red"><%if(request.getAttribute("error")!=null){%><%=request.getAttribute("error")%><%}%></font></td></tr>
+</table>
+</center>
+</form>
+</body>
+</html>
+
+DepartmentRemove.java
+*********************
+
+package com.dsrc.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.bean.Department;
+import com.dsrc.bo.DepartmentBO;
+import com.dsrc.exception.EMPException;
+
+/**
+ * Servlet implementation class DepartmentRemove
+ */
+@WebServlet("/DepartmentRemove")
+public class DepartmentRemove extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DepartmentRemove() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		try {
+			int no=Integer.parseInt(request.getParameter("no"));
+			
+			Department d=new Department();
+			d.setDeptno(no);
+			
+			DepartmentBO dbo=new DepartmentBO();
+			boolean res=dbo.validateDepartmentDelete(d);
+			if(res==false)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("deleteDepartment.jsp");
+				request.setAttribute("error","Invalid DeptNo");
+				rd.forward(request, response);
+			}
+			else
+			{
+				response.sendRedirect("adminHome.jsp");
+			}
+		} catch (EMPException e) {
+			// TODO Auto-generated catch block
+			RequestDispatcher rd=request.getRequestDispatcher("deleteDepartment.jsp");
+			request.setAttribute("error", e.getMessage());
+			rd.forward(request, response);
+		}catch(NumberFormatException n)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("deleteDepartment.jsp");
+			request.setAttribute("error", "Enter the DeptNo");
+			rd.forward(request, response);
+		}
+	}
+}
+
+DepartmentBO.java
+******************
+
+package com.dsrc.bo;
+
+import com.dsrc.bean.Department;
+import com.dsrc.dao.DepartmentDAO;
+import com.dsrc.exception.EMPException;
+
+public class DepartmentBO {
+
+	public boolean validateDepartment( Department depart)
+	{
+		return false;
+		
+	}
+	public boolean validateDepartmentDelete( Department depart) throws EMPException
+	{
+		
+		String no=String.valueOf(depart.getDeptno());
+		boolean res=false;
+		if(no.length()>0)
+		{
+			DepartmentDAO ddao=new DepartmentDAO();
+			res=ddao.deleteDepartment(depart); 
+		}
+		else
+		{
+			throw new EMPException("Enter the no");
+		}
+		
+		return res;
+		
+	}
+}
+
+
+DepartmentDAO.java
+*******************
+
+package com.dsrc.dao;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.dsrc.bean.Department;
+
+public class DepartmentDAO 
+{
+	public boolean saveDepartment( Department depart)
+	{
+		return false;
+		
+	}
+	public boolean deleteDepartment( Department depart)
+	{
+		SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(Department.class).buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();	
+		int j=depart.getDeptno();
+		List dept=s.createQuery("From Department").list();
+		for(Iterator i=dept.iterator();i.hasNext();)
+		{
+			Department d=(Department) i.next();
+			if(j==d.getDeptno())
+			{
+				depart=(Department) s.get(Department.class, depart.getDeptno());
+				s.delete(depart);
+				tx.commit();
+				s.close();
+				return true;
+			}
+		}
+		return false;				
+	}
+}
+
+
+no  4
+
+
+Employee.java
+**************
+
+package com.dsrc.bean;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Employee")
+public class Employee {
+	
+	@Id
+	@Column(name="EmpNo")
+	private int empno;
+	@Column(name="FirstName")
+	private String fname;
+	@Column(name="LastName")
+	private String lname;
+	@Column(name="Email")
+	private String email;
+	@Column(name="Mobile")
+	private String mobile;
+	@Column(name="DeptName")
+	private String deptname;
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+	public String getLname() {
+		return lname;
+	}
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getDeptname() {
+		return deptname;
+	}
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+}
+
+
+adminHome.jsp
+**************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="EmployeeRegister" method="get">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<input type="submit" name="sub" value="Add Department">
+<input type="submit" name="sub" value="Delete Department">
+<input type="submit" name="sub" value="Add Employee">
+<input type="submit" name="sub" value="Delete Employee">
+<input type="submit" name="sub" value="Search Employee">
+</center>
+</form>
+</body>
+</html>
+
+
+EmployeeRegister.java
+**********************
+
+package com.dsrc.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dsrc.bean.Employee;
+import com.dsrc.bo.EmployeeBO;
+import com.dsrc.exception.EMPException;
+
+/**
+ * Servlet implementation class EmployeeRegister
+ */
+@WebServlet("/EmployeeRegister")
+public class EmployeeRegister extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EmployeeRegister() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getParameter("sub").equalsIgnoreCase("Add Employee"))
+		{
+			response.sendRedirect("addEmployee.jsp");
+		}
+		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
+		try {
+			int no=Integer.parseInt(request.getParameter("empno"));
+			String fname=request.getParameter("fname");
+			String lname=request.getParameter("lname");
+			String email=request.getParameter("email");
+			String mobile=request.getParameter("mobile");
+			String deptname=request.getParameter("deptname");
+			
+			boolean res;
+			Employee e=new Employee();
+			e.setEmpno(no);
+			e.setFname(fname);
+			e.setLname(lname);
+			e.setEmail(email);
+			e.setMobile(mobile);
+			e.setDeptname(deptname);
+			
+			EmployeeBO ebo=new EmployeeBO();
+			res=ebo.validateEmployee(e);
+			if(res)
+			{
+				response.sendRedirect("adminHome.jsp");
+			}
+		} catch (EMPException e1) {
+			
+			RequestDispatcher rd=request.getRequestDispatcher("addEmployee.jsp");
+			request.setAttribute("error", e1.getMessage());
+			rd.forward(request, response);		
+		}	catch(NumberFormatException n)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("addEmployee.jsp");
+			request.setAttribute("error", "Fill all Details");
+			rd.forward(request, response);
+		}
+	}
+}
+
+
+addEmployee.jsp
+****************
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="EmployeeRegister" method="post">
+<center>
+<img alt="img" src="Logo.png"><hr>
+<table>
+<tr><td>Employee No</td><td><input type="text" name="empno"></td></tr>
+<tr><td>First Name</td><td><input type="text" name="fname"></td></tr>
+<tr><td>Last Name</td><td><input type="text" name="lname"></td></tr>
+<tr><td>Email</td><td><input type="text" name="email"></td></tr>
+<tr><td>Mobile</td><td><input type="text" name="mobile"></td></tr>
+<tr><td>Department Name</td><td><input type="text" name="deptname"></td></tr>
+<tr><td></td><td align="right"><input type="submit" value="SAVE"></td></tr>
+</table>
+<font color="red"><%if(request.getAttribute("error")!=null){%><%=request.getAttribute("error")%><%}%></font>
+</center>
+</form>
+</body>
+</html>
+
+
+EmployeeBO.java
+****************
+
+package com.dsrc.bo;
+
+import org.hibernate.HibernateException;
+
+import com.dsrc.bean.Employee;
+import com.dsrc.dao.EmployeeDAO;
+import com.dsrc.exception.EMPException;
+
+public class EmployeeBO 
+{
+		public boolean validateEmployee(Employee employee) throws EMPException
+		{
+			
+			String no=String.valueOf(employee.getEmpno());
+			String fname=employee.getFname();
+			String lname=employee.getLname();
+			String email=employee.getEmail();
+			String mobile=employee.getMobile();
+			String deptname=employee.getDeptname();
+			
+			boolean res=false;
+			
+			if(no.length()>0&&fname.length()>0&&lname.length()>0&&email.length()>0&&mobile.length()>0&&deptname.length()>0)
+			{
+				String mail="^(.+)@(.+)$";
+				if(email.matches(mail))
+				{
+					if(mobile.length()==10)
+					{
+						EmployeeDAO edao=new EmployeeDAO();
+						try{
+						res=edao.saveEmployee(employee);
+						}
+						catch(HibernateException h)
+						{
+							throw new EMPException("Employee Id Already Exists");
+						}
+					}
+					else
+					{
+						throw new EMPException("Invalid MobileNo");
+					}
+				}
+				else
+				{
+					throw new EMPException("Invalid Email");
+				}
+			}
+			else
+			{
+				throw new EMPException("Fill all Details");
+			}
+						
+			return res;
+			
+		}
+}
+
+
+EmployeeDAO.java
+*****************
+
+package com.dsrc.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.dsrc.bean.Employee;
+
+public class EmployeeDAO
+{
+	public boolean saveEmployee(Employee employee)
+	{		
+		SessionFactory sf=new AnnotationConfiguration().configure().addAnnotatedClass(Employee.class).buildSessionFactory();
+		Session s=sf.openSession();
+		Transaction tx=s.beginTransaction();	
+		
+		s.save(employee);
+		tx.commit();
+		s.close();
+		return true;		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
